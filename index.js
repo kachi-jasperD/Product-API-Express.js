@@ -93,3 +93,5 @@ app.delete("/delete-product/:id", (req, res) => {
   products = newProductsList;
   res.send(`Product with ID ${id} deleted successfully`);
 });
+
+// End of file

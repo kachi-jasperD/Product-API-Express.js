@@ -94,4 +94,22 @@ app.delete("/delete-product/:id", (req, res) => {
   res.send(`Product with ID ${id} deleted successfully`);
 });
 
+/* GET ROUTE
+7) Line 100-113 - Defines a GET route at "/product/:id" that returns a specific product by ID with a success message.
+*/
+app.get("/product/:id", (req, res) => {
+  const id = req.params.id;
+
+  const product = products.find((p) => p.id === id);
+
+  if (!product) {
+    return res.status(404).json({ message: "Product not found" });
+  }
+
+  res.status(200).json({
+    product,
+    message: "Product retrieved successfully",
+  });
+});
+
 // End of file

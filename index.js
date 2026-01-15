@@ -5,21 +5,22 @@
 4) Line 11 - Middleware to parse incoming JSON request bodies.
 */
 
+require("dotenv").config();
 const randomUUID = require("crypto").randomUUID;
 const express = require("express");
 const app = express();
 app.use(express.json());
 var { expressjwt: jwt } = require("express-jwt");
-const password = "my_secret_key";
-const salt = ["HS256"];
+const password = process.env.PASSWORD;
+const salt = [process.env.SALT];
 
 /* 
-5) Line 19 - Initializes an empty array to store product data in memory.
+5) Line 20 - Initializes an empty array to store product data in memory.
 */
 let products = [];
 
 /*  CREATE SERVER 
-6) Line 24-27 - Creates and starts the server on port 8080, logging a message to indicate that the server is running.
+6) Line 25-28 - Creates and starts the server on port 8080, logging a message to indicate that the server is running.
 */
 const port = 8080;
 app.listen(port, () => {
@@ -29,7 +30,7 @@ app.listen(port, () => {
 //Define the CRUD routes for managing products
 
 /* GET ROUTE
-7) Line 34-43 - Defines a GET route at "/products" that returns the list of products with a success message.
+7) Line 35-44 - Defines a GET route at "/products" that returns the list of products with a success message.
 */
 app.get(
   "/products",
@@ -43,7 +44,7 @@ app.get(
 );
 
 /* POST ROUTE
-8) Line 48-68 - Defines a POST route at "/add-product" that adds a new product to the products array, generating a unique ID for it, and returns the added product with a success message. It also handles empty request body.
+8) Line 49-69 - Defines a POST route at "/add-product" that adds a new product to the products array, generating a unique ID for it, and returns the added product with a success message. It also handles empty request body.
 */
 app.post(
   "/add-product",
@@ -68,7 +69,7 @@ app.post(
 );
 
 /* PUT ROUTE
-9) Line 73-99 - Defines a PUT route at "/update-product/:id" that updates an existing product based on its ID, returning the updated product with a success message. It handles empty request body and cases where the product is not found.
+9) Line 75-100 - Defines a PUT route at "/update-product/:id" that updates an existing product based on its ID, returning the updated product with a success message. It handles empty request body and cases where the product is not found.
 */
 app.put(
   "/update-product/:id",
@@ -99,7 +100,7 @@ app.put(
 );
 
 /* DELETE ROUTE
-10) Line 104-114 - Defines a DELETE route at "/delete-product/:id" that removes a product from the products array based on its ID and returns a success message. And updates the products array to exclude the deleted product.
+10) Line 105-115 - Defines a DELETE route at "/delete-product/:id" that removes a product from the products array based on its ID and returns a success message. And updates the products array to exclude the deleted product.
 */
 app.delete(
   "/delete-product/:id",
@@ -114,7 +115,7 @@ app.delete(
 );
 
 /* GET ROUTE
-7) Line 119-144 - Defines a GET route at "/product/:id" that returns a specific product by ID with a success message.
+7) Line 120-145 - Defines a GET route at "/product/:id" that returns a specific product by ID with a success message.
 */
 app.get(
   "/product/:id",
